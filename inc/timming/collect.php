@@ -137,6 +137,11 @@ function cj(){
 	$uprule = $MAC['collect']['vod']['uprule'];
 	$filter = $MAC['collect']['vod']['filter'];
 
+    $players = $GLOBALS['MAC_CACHE']['vodplay'];
+    if($ct==1) {
+        $players = $GLOBALS['MAC_CACHE']['voddown'];
+    }
+
     $key=0;
     $i=0;
     foreach($xml->list->video as $video){
@@ -219,13 +224,17 @@ function cj(){
 	        if(!$row){
                 if($count=count($video->dl->dd)) {
                     for ($j = 0; $j < $count; $j++) {
+                        $f1=  (string)$video->dl->dd[$j]['flag'];
+                        if(empty($players[$f1])){
+                            continue;
+                        }
                         if ($rc) {
                             $d_playfrom .= "$$$";
                             $d_playserver .= "$$$";
                             $d_playnote .= "$$$";
                             $d_playurl .= "$$$";
                         }
-                        $d_playfrom .= strip_tags(getFrom( (string)$video->dl->dd[$j]['flag'] ));
+                        $d_playfrom .= strip_tags(getFrom( $f1 ));
                         $d_playurl .= strip_tags(getVUrl( (string)$video->dl->dd[$j] ));
                         $d_playserver .= '0';
                         $d_playnote .= '';
@@ -277,10 +286,14 @@ function cj(){
                 	$des = '';
 
                     if($count=count($video->dl->dd)) {
+                        $rc = false;
                         for ($j = 0; $j < $count; $j++) {
-                            $d_playfrom = strip_tags(getFrom((string)$video->dl->dd[$j]['flag']));
+                            $f1 = (string)$video->dl->dd[$j]['flag'];
+                            if(empty($players[$f1])){
+                                continue;
+                            }
+                            $d_playfrom = strip_tags(getFrom($f1));
                             $d_playurl = strip_tags(getVUrl((string)$video->dl->dd[$j]));
-                            $rc = false;
                             if ($n_url == $d_playurl) {
                                 $des .= '<font color="red">地址相同，跳过。</font>';
                                 continue;

@@ -276,6 +276,10 @@ elseif($method=='cj'){
 	$uprule = $MAC['collect']['vod']['uprule'];
 	$filter = $MAC['collect']['vod']['filter'];
 
+	$players = $GLOBALS['MAC_CACHE']['vodplay'];
+	if($ct==1) {
+        $players = $GLOBALS['MAC_CACHE']['voddown'];
+    }
     $key=0;
     $i=0;
     foreach($xml->list->video as $video){
@@ -319,7 +323,7 @@ elseif($method=='cj'){
         if($MAC['collect']['vod']['psesyn']==1){
         	$d_content = repPseSyn('vod',$d_content);
         }
-        
+
         $d_type_expand='';
         $d_class='';
         $d_color='';
@@ -358,13 +362,17 @@ elseif($method=='cj'){
 	        if(!$row){
                 if($count=count($video->dl->dd)) {
                     for ($j = 0; $j < $count; $j++) {
+                        $f1=  (string)$video->dl->dd[$j]['flag'];
+                        if(empty($players[$f1])){
+                            continue;
+                        }
                         if ($rc) {
                             $d_playfrom .= "$$$";
                             $d_playserver .= "$$$";
                             $d_playnote .= "$$$";
                             $d_playurl .= "$$$";
                         }
-                        $d_playfrom .= strip_tags(getFrom( (string)$video->dl->dd[$j]['flag'] ));
+                        $d_playfrom .= strip_tags(getFrom( $f1 ));
                         $d_playurl .= strip_tags(getVUrl( (string)$video->dl->dd[$j] ));
                         $d_playserver .= '0';
                         $d_playnote .= '';
@@ -418,10 +426,14 @@ elseif($method=='cj'){
                 	$des = '';
 
                     if($count=count($video->dl->dd)) {
+                        $rc = false;
                         for ($j = 0; $j < $count; $j++) {
-                            $d_playfrom = strip_tags(getFrom((string)$video->dl->dd[$j]['flag']));
+                            $f1 = (string)$video->dl->dd[$j]['flag'];
+                            if(empty($players[$f1])){
+                                continue;
+                            }
+                            $d_playfrom = strip_tags(getFrom($f1));
                             $d_playurl = strip_tags(getVUrl((string)$video->dl->dd[$j]));
-                            $rc = false;
                             if ($n_url == $d_playurl) {
                                 $des .= '<font color="red">地址相同，跳过。</font>';
                                 continue;
@@ -450,7 +462,7 @@ elseif($method=='cj'){
                             }
                         }
                     }
-		        	
+
 		            if($rc){
 		            	
         				if (empty($row["d_pic"]) || strpos(",".$row["d_pic"], "http:")>0) { } else { $d_pic= $row["d_pic"];}
@@ -461,7 +473,9 @@ elseif($method=='cj'){
 	                	$valarr = array();
 	                	array_push($colarr,'d_time');
 	                	array_push($valarr,time());
-	                	
+
+
+
 	                	if(strpos(','.$uprule,'a') && $ct!=1){
 	                		array_push($colarr,'d_playfrom','d_playserver','d_playnote','d_playurl');
 	                		array_push($valarr,$n_from,$n_server,$n_note,$n_url);
@@ -756,6 +770,9 @@ elseif($method=='cjjson'){
         $uprule = $MAC['collect']['vod']['uprule'];
         $filter = $MAC['collect']['vod']['filter'];
 
+        $players = $GLOBALS['MAC_CACHE']['vodplay'];
+        $downers = $GLOBALS['MAC_CACHE']['voddown'];
+
 
         foreach ($json['list'] as $one) {
 
@@ -813,6 +830,16 @@ elseif($method=='cjjson'){
             foreach($cj_play_from_arr as $kk=>$vv){
                 if(empty($vv)){
                     unset($cj_play_from_arr[$kk]);
+                    unset($cj_play_url_arr[$kk]);
+                    unset($cj_play_server_arr[$kk]);
+                    unset($cj_play_note_arr[$kk]);
+                    continue;
+                }
+                if(empty($players[$vv])){
+                    unset($cj_play_from_arr[$kk]);
+                    unset($cj_play_url_arr[$kk]);
+                    unset($cj_play_server_arr[$kk]);
+                    unset($cj_play_note_arr[$kk]);
                     continue;
                 }
                 $cj_play_url_arr[$kk] = rtrim($cj_play_url_arr[$kk],'#');
@@ -822,6 +849,16 @@ elseif($method=='cjjson'){
             foreach($cj_down_from_arr as $kk=>$vv){
                 if(empty($vv)){
                     unset($cj_down_from_arr[$kk]);
+                    unset($cj_down_url_arr[$kk]);
+                    unset($cj_down_server_arr[$kk]);
+                    unset($cj_down_note_arr[$kk]);
+                    continue;
+                }
+                if(empty($downers[$vv])){
+                    unset($cj_down_from_arr[$kk]);
+                    unset($cj_down_url_arr[$kk]);
+                    unset($cj_down_server_arr[$kk]);
+                    unset($cj_down_note_arr[$kk]);
                     continue;
                 }
                 $cj_down_url_arr[$kk] = rtrim($cj_down_url_arr[$kk]);

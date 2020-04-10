@@ -1351,7 +1351,10 @@ elseif($method=='info')
 	$plt->set_var('select_play',str_replace("'","\'",$select_play));
 	$plt->set_var('select_down',str_replace("'","\'",$select_down));
 	$plt->set_var('select_server',str_replace("'","\'",$select_server));
-	
+
+    $players = $GLOBALS['MAC_CACHE']['vodplay'];
+    $downers = $GLOBALS['MAC_CACHE']['voddown'];
+
 	$playnum = 1;
 	$rn='play';
 	$plt->set_block('main', 'list_'.$rn, 'rows_'.$rn);
@@ -1361,14 +1364,18 @@ elseif($method=='info')
 	    $playnotearr = explode('$$$',$valarr['d_playnote']);
 	    $playurlarr = explode('$$$',$valarr['d_playurl']);
 	    $i=0;
-		foreach($playfromarr as $a){
-			$playfrom = $playfromarr[$i];
-			$playserver = $playserverarr[$i];
-	    	$playnote = $playnotearr[$i];
-	    	$playurl = str_replace('#', Chr(13),$playurlarr[$i]);
-	    	
+		foreach($playfromarr as $kk=>$vv){
+			$playfrom = $playfromarr[$kk];
+			$playserver = $playserverarr[$kk];
+	    	$playnote = $playnotearr[$kk];
+	    	$playurl = str_replace('#', Chr(13),$playurlarr[$kk]);
+
+	    	if(empty($players[$playfrom])){
+	    	    continue;
+            }
+
+
 	    	$select_play_sel = str_replace('<option value=\''.$playfrom.'\' >','<option value=\''.$playfrom.'\' selected>',$select_play);
-	    	
 	    	$select_server_sel = str_replace('<option value=\''.$playserver.'\' >','<option value=\''.$playserver.'\' selected>',$select_server);
 	    	
 			$plt->set_var('n',$playnum);
@@ -1380,6 +1387,7 @@ elseif($method=='info')
 			$playnum++;
 			$plt->parse('rows_'.$rn,'list_'.$rn,true);
 		}
+
 		unset($arr);
 	}
 	else{
@@ -1396,17 +1404,20 @@ elseif($method=='info')
 	    $downnotearr = explode('$$$',$valarr['d_downnote']);
 	    $downurlarr = explode('$$$',$valarr['d_downurl']);
 	    $i=0;
-		foreach($downfromarr as $a){
-			$downfrom = $downfromarr[$i];
-			$downserver = $downserverarr[$i];
-	    	$downnote = $downnotearr[$i];
-	    	$downurl = str_replace('#', Chr(13),$downurlarr[$i]);
-	    	
+		foreach($downfromarr as $kk=>$vv){
+			$downfrom = $downfromarr[$kk];
+			$downserver = $downserverarr[$kk];
+	    	$downnote = $downnotearr[$kk];
+	    	$downurl = str_replace('#', Chr(13),$downurlarr[$kk]);
+
+            if(empty($downers[$downfrom])){
+                continue;
+            }
+
 	    	$select_down_sel = str_replace('<option value=\''.$downfrom.'\' >','<option value=\''.$downfrom.'\' selected>',$select_down);
 	    	$select_server_sel = str_replace('<option value=\''.$downserver.'\' >','<option value=\''.$downserver.'\' selected>',$select_server);
 	    	
-	    	
-	    	
+
 			$plt->set_var('n',$downnum);
 			$plt->set_var('downurl',$downurl);
 			$plt->set_var('downnote',$downnote);
