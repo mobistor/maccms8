@@ -96,7 +96,9 @@ if($ac=='videolist')
 		
 		while ($row = $db ->fetch_array($rs))
 		{
-		    $row = filter_tags($row);
+            if($GLOBALS['MAC']['app']['filtertags'] != '2') {
+                $row = array_map('filter_tags', $row);
+            }
 			$tempurl = urlDeal($row["d_playurl"],$row["d_playfrom"],$from);
 		    if(substr($row["d_pic"],0,4)=="http"){ $temppic = $row["d_pic"]; } else { $temppic = $MAC['api']['vod']['imgurl'] . $row["d_pic"]; }
 		    
@@ -169,7 +171,9 @@ else
 		
 		while ($row = $db ->fetch_array($rs))
 	  	{
-            $row = filter_tags($row);
+            if($GLOBALS['MAC']['app']['filtertags'] != '2') {
+                $row = array_map('filter_tags', $row);
+            }
 	  		$typearr = $MAC_CACHE['vodtype'][$row["d_type"]];
 			$xml .= "<video>";
 			$xml .= "<last>".date('Y-m-d H:i:s',$row["d_time"])."</last>";
@@ -199,7 +203,9 @@ else
 	$rs = $db->query($sql);
 	while ($row = $db ->fetch_array($rs))
 	{
-        $row = filter_tags($row);
+        if($GLOBALS['MAC']['app']['filtertags'] != '2') {
+            $row = array_map('filter_tags', $row);
+        }
 		$xml .= "<ty id=\"". $row["t_id"] ."\">". $row["t_name"] . "</ty>";
 	}
 	unset($rs);

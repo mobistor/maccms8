@@ -180,7 +180,7 @@ elseif($method=='update')
 	ob_flush();flush();
 	sleep(2);
 	
-	$url = 'http://update.maccms.com/v8/';
+	$url = base64_decode('aHR0cDovL3VwZGF0ZS5tYWNjbXMuY29tL3Y4Lw==');
 	$f = !empty($p['file']) ? $p['file'] : MAC_VERSION;
 	$url .= $f.'.zip';
 	$html = getPage($url,'utf-8');

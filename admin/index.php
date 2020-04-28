@@ -49,7 +49,7 @@
     	$plt->p("mains");
     	
     	if($method=='wel'){
-    		echo '<span style="display:none"><script src="//update.maccms.com/v8/?c=check&v='.MAC_VERSION.'&p='.PHP_VERSION.'&t='.time().'"></script></span>';
+
     	}
     }
     else{

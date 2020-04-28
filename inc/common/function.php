@@ -1710,7 +1710,7 @@ function getVUrl($u)
 }
 
 function getTag($title,$content){
-	$url ='http://api.maccms.com/keyword/?callback=&txt='.rawurlencode($title).rawurlencode(substring(strip_tags($content),200));
+	$url ='http://api.maccms.com/keyword/index/txt/'.rawurlencode($title).rawurlencode(substring(strip_tags($content),200));
 	$data = getPage($url,'utf-8');
 	$json = @json_decode($data,true);
 	if($json){

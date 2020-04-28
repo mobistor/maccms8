@@ -1376,7 +1376,7 @@ class AppTpl
 		$val=$m1;
 
         if($GLOBALS['MAC']['app']['filtertags'] != '2'){
-            $mrs = filter_tags($mrs);
+            $mrs = array_map('filter_tags',$mrs);
         }
 
         switch($f)
@@ -2290,7 +2290,7 @@ class AppTpl
     function replaceVod()
     {
         if($GLOBALS['MAC']['app']['filtertags'] != '2') {
-            $this->D = filter_tags($this->D);
+            $this->D = array_map('filter_tags',$this->D);
         }
     	$id = $this->D['d_id'];
         $name = $this->D['d_name'];
@@ -2318,7 +2318,7 @@ class AppTpl
 			$this->H = str_replace($matches2[0][$j], $marktemp,$this->H);
 		}
 		unset($matches2);
-		$this->H = str_replace( "[vod:".$flag."er]", "<script src=\"". MAC_PATH ."js/playerconfig.js\"></script><script src=\"". MAC_PATH ."js/player.js\"></script><script>MacPlayer.init('".$GLOBALS['MAC']['vod']['suffix']."','".$flag."');</script>",$this->H);
+		$this->H = str_replace( "[vod:".$flag."er]", "<script src=\"". MAC_PATH ."js/playerconfig.js?t=".MAC_TSP."\"></script><script src=\"". MAC_PATH ."js/player.js?t=".MAC_TSP."\"></script><script>MacPlayer.init('".$GLOBALS['MAC']['vod']['suffix']."','".$flag."');</script>",$this->H);
     }
     
     function loadart()
@@ -2367,7 +2367,7 @@ class AppTpl
     function replaceArt()
     {
         if($GLOBALS['MAC']['app']['filtertags'] != '2'){
-            $this->D = filter_tags($this->D);
+            $this->D = array_map('filter_tags',$this->D);
         }
     	$id = $this->D['a_id'];
         $name = $this->D['a_name'];

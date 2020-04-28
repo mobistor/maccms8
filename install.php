@@ -119,7 +119,7 @@ EOT;
 	function show_footer()
 	{
 	echo <<<EOT
-		<div class="footer">&copy;2008 - 2017 <a href="http://www.maccms.com/">苹果CMS</a> Inc.</div>
+		<div class="footer">&copy;2019 <a href="http://www.maccms.com/">苹果CMS</a> Inc.</div>
 	</div>
 </div>
 </body>

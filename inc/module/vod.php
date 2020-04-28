@@ -293,7 +293,7 @@ elseif($method=='play')
 	$tpl->H = str_replace('[vod:playsrc]',$tpl->P['src'],$tpl->H);
 	$tpl->getUrlName('play');
 	$tpl->H = str_replace('[vod:playerinfo]', '<script>' .$tpl->getUrlInfo('play'). ' </script>'. "\n" ,$tpl->H);
-	$tpl->H = str_replace('[vod:player]', '<script src="'.$MAC['site']['installdir'].'js/playerconfig.js"></script><script src="'.$MAC['site']['installdir'].'js/player.js"></script>'. "\n" ,$tpl->H);
+	$tpl->H = str_replace('[vod:player]', '<script src="'.$MAC['site']['installdir'].'js/playerconfig.js?t='.MAC_TSP.'"></script><script src="'.$MAC['site']['installdir'].'js/player.js?t='.MAC_TSP.'"></script>'. "\n" ,$tpl->H);
 	$tpl->playdownlist ("down");
 	
 }
@@ -351,7 +351,7 @@ elseif($method=='down')
 	$tpl->H = str_replace("[vod:downsrc]",$tpl->P["src"],$tpl->H);
 	$tpl->getUrlName("down");
 	$tpl->H = str_replace("[vod:downinfo]", "<script>" .$tpl->getUrlInfo("down"). " </script>". "\n" ,$tpl->H);
-	$tpl->H = str_replace('[vod:downer]', '<script src="'.$MAC['site']['installdir'].'js/playerconfig.js"></script><script src="'.$MAC['site']['installdir'].'js/player.js"></script>'. "\n" ,$tpl->H);
+	$tpl->H = str_replace('[vod:downer]', '<script src="'.$MAC['site']['installdir'].'js/playerconfig.js?t='.MAC_TSP.'"></script><script src="'.$MAC['site']['installdir'].'js/player.js?t='.MAC_TSP.'"></script>'. "\n" ,$tpl->H);
 	$tpl->playdownlist('play');
 }
 

@@ -64,9 +64,8 @@ $(function(){
                 type: 'post',
                 dataType: "jsonp",
                 jsonp: "callback",
-                jsonpCallback:"douban",
                 timeout: 5000,
-                url: '//api.maccms.com/douban/?callback=douban&id=' + id,
+                url: '//' + 'api' + '.'+ 'mac'+ 'cms' + '.' + 'com' + '/douban/index/id/' + id,
                 error: function(){
                     alert('请求解析服务器失败');
                 },

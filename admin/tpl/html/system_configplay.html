@@ -11,7 +11,22 @@
 <script type="text/javascript" src="tpl/js/adm.js"></script>
 <script language="javascript">
 $(function(){
-	
+  $('#btnDef').click(function(){
+    $('input[name="mac_width"]').val('0');
+    $('input[name="mac_height"]').val('580');
+    $('input[name="mac_widthmob"]').val('0');
+    $('input[name="mac_heightmob"]').val('400');
+    $('input[name="mac_widthpop"]').val('704');
+    $('input[name="mac_heightpop"]').val('560');
+    $('input[name="mac_second"]').val('5');
+    $('input[name="mac_prestrain"]').val('//union.maccms.com/html/prestrain.html');
+    $('input[name="mac_buffer"]').val('//union.maccms.com/html/buffer.html');
+    $('input[name="mac_autofull"]').eq(0).attr('checked', 'true');
+    $('input[name="mac_showtop"]').eq(1).attr('checked', 'true');
+    $('input[name="mac_showlist"]').eq(1).attr('checked', 'true');
+    $('input[name="mac_colors"]').val('000000,F6F6F6,F6F6F6,333333,666666,FFFFF,FF0000,2c2c2c,ffffff,a3a3a3,2c2c2c,adadad,adadad,48486c,fcfcfc');
+
+  });
 });
 function setColor(v)
 {
@@ -62,19 +77,19 @@ function setColor(v)
     </tr>
     <tr>
     <tr>
-      <td>预加载广告时间：</td>
+      <td>预加载提示时间：</td>
       <td>
           <input name="mac_second" value="{mac_second}" size="10">
            <font color="#FF0000">＊</font> 秒</td>
     </tr>
     <tr>
-      <td>预加载广告地址：</td>
+      <td>预加载提示地址：</td>
       <td>
           <input name="mac_prestrain" value="{mac_prestrain}" size="70">
            <font color="#FF0000">＊</font>不要出现" ' 等特殊字符号</td>
     </tr>
     <tr>
-      <td>缓冲广告地址：</td>
+      <td>缓冲提示地址：</td>
       <td>
           <input name="mac_buffer" value="{mac_buffer}" size="70">
            <font color="#FF0000">＊</font>不要出现" ' 等特殊字符号</td>
@@ -121,6 +136,8 @@ function setColor(v)
      <tr align="center">
       <td colspan="2">
           <input name="btnSave" type="submit" id="btnSave" class="input" value="更新参数">
+        <button type="button" class="input" id="btnDef">默认值</button>
+        <button class="input" type="reset">还 原</button>
           如出错请手动修改 js/playconfig.js 文件     </td>
     </tr>
 </table>

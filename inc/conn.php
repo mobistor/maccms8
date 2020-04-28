@@ -21,6 +21,7 @@ define('MAC_STARTTIME',execTime());
 define('MAC_URL','http://www.maccms.com/');
 define('MAC_NAME','苹果CMS');
 define('MAC_PATH', $MAC['site']['installdir']);
+define('MAC_TSP',date('Ymd'));
 
 $isMobile = 0;
 $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
